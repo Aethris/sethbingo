@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="stylesheet.css">
+		<script>
+			
+			//var checked = new Array(5).fill(new Array(5));
+			var checked = [[0],[0],[0],[0],[0],[0]];
+		</script>
+	</head>
+
+	<body>
+		<h1>Bingo</h1>
+		<div>
+		<table id="board">
+		</table>
+		</div>
+		<script>
+		
+			var list = ["plz play ali a intro","Coconuts","Sloths","THE BEST THE BEST THE BEST THE BEST","Brain Power","Bamboozled by the Mods","Seth cries","Drumstick broken","Kazoo","Laughing mid song","Forgets to wash hands","PANTS AND FEET","Stream freeze in an awkward frame","Replaces swear word","Seth's voice breaks","Stick throw fail","Admin panel lags out","Dad jokes in chat","Conversation about food","Marvin barks","K-Pop requests","Random DING","Seth is speechless","Eye to eye","Heartrate over 150","Hammock #UD","Seth is completely clueless about a song","Titanic"];
+			var length = list.length;
+			var board = "";
+			var counter = 0;
+			var rnd = -999;
+			var temp;
+			
+			//Shuffle possible tiles
+			for (i = 0; i < length; i++)
+			{
+				rnd = Math.floor(Math.random() * i);
+				temp = list[i];
+				list[i] = list[rnd];
+				list[rnd] = temp;
+			}
+			
+			//Generate the board
+			for (i = 0; i < 5; i++)
+			{
+				board += "<tr>";
+				for (j = 0; j < 5; j++)
+				{
+					board += "<td id='" + j + "_" + i + "' onclick='mark(" + j + "," + i + ")'>";
+					checked[i][j]=0;
+					if (i==2 && j==2)
+					{
+						board += "He Lives In You";
+					}
+					else
+					{
+						board += list[counter];
+					}
+					board += "</td>";
+					counter++;
+				}
+				board += "</tr>";
+			}
+			
+			document.getElementById("board").innerHTML=board;
+			
+			//This is for when a tile is clicked
+			function mark(x,y)
+			{
+				var bingo = false;
+				var counterx = 0,
+					countery = 0,
+					counterd1 = 0,
+					counterd2 = 0;
+				
+				//Checks if the tile is active, if its not then activate it, and vice-versa
+				if (checked[x][y] == 1)
+				{
+					checked[x][y] = 0;
+					document.getElementById("" + x + "_" + y).style.backgroundColor = "#182121";
+				}
+				else
+				{
+					checked[x][y] = 1;
+					document.getElementById("" + x + "_" + y).style.backgroundColor = "#34dbc7";
+				}
+				
+				for (i = 0; i < 5; i++)
+				{
+					counterx += checked[x][i];
+					countery += checked[i][y];
+					counterd1 += checked[i][i];
+					counterd2 += checked[i][4-i];
+				}
+				
+				if (counterx == 5 || countery == 5 || counterd1 == 5 || counterd2 == 5)
+				{
+					bingo = true;
+					alert("Bingo!");
+				}
+			}
+		</script>
+	</body>
+</html>

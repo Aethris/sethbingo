@@ -2,11 +2,19 @@ h1
 {
 	font: 20px helvetica, sans-serif;
 	text-align: center;
+	color: #182121; /*#34dbc7*/
+}
+
+p
+{
 	color: #34dbc7;
+	font: 10px helvetica, sans-serif;
+	text-align: center;
 }
 
 html
 {
+	background-image: url("bg.jpg");
 	background-color: #182121;
 }
 
